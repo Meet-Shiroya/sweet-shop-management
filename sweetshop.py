@@ -46,6 +46,14 @@ class SweetShop:
                     return
         print(f"❌ Sweet with ID {sweet_id} not found.")
 
+    def restock_sweet(self, sweet_id, quantity):
+        for sweet in self.sweets:
+            if sweet.id == sweet_id:
+                sweet.quantity += quantity
+                print(f"🔄 Restocked {quantity} units of '{sweet.name}'. Total now: {sweet.quantity}")
+                return
+        print(f"❌ Sweet with ID {sweet_id} not found.")
+
 
 # Demo
 if __name__ == "__main__":
@@ -60,12 +68,11 @@ if __name__ == "__main__":
 
     shop.view_sweets()
 
-    # Search
-    shop.search_sweets("Halwa")
+    # Purchase some sweets
+    shop.purchase_sweet(1001, 5)
 
-    # Purchase
-    shop.purchase_sweet(1002, 5)  # success
-    shop.purchase_sweet(1003, 30)  # not enough quantity
-    shop.purchase_sweet(9999, 2)   # ID not found
+    # Restock sweets
+    shop.restock_sweet(1001, 10)
+    shop.restock_sweet(9999, 5)  # Invalid ID
 
     shop.view_sweets()
