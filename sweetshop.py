@@ -33,6 +33,19 @@ class SweetShop:
         if not found:
             print("❌ No sweets found with that keyword.")
 
+    def purchase_sweet(self, sweet_id, quantity):
+        for sweet in self.sweets:
+            if sweet.id == sweet_id:
+                if sweet.quantity >= quantity:
+                    sweet.quantity -= quantity
+                    total = sweet.price * quantity
+                    print(f"🛒 Purchased {quantity} x {sweet.name} for ₹{total}")
+                    return
+                else:
+                    print(f"❌ Only {sweet.quantity} units available. Cannot purchase {quantity}.")
+                    return
+        print(f"❌ Sweet with ID {sweet_id} not found.")
+
 
 # Demo
 if __name__ == "__main__":
@@ -46,6 +59,13 @@ if __name__ == "__main__":
     shop.add_sweet(sweet3)
 
     shop.view_sweets()
-    shop.search_sweets("Milk")
+
+    # Search
     shop.search_sweets("Halwa")
-    shop.search_sweets("Candy")
+
+    # Purchase
+    shop.purchase_sweet(1002, 5)  # success
+    shop.purchase_sweet(1003, 30)  # not enough quantity
+    shop.purchase_sweet(9999, 2)   # ID not found
+
+    shop.view_sweets()
